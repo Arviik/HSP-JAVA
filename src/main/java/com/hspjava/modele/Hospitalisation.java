@@ -1,4 +1,4 @@
-package modele;
+package com.hspjava.modele;
 
 import java.util.Date;
 

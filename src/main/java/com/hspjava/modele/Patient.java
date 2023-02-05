@@ -1,4 +1,4 @@
-package modele;
+package com.hspjava.modele;
 
 public class Patient {
     private int id_patient;

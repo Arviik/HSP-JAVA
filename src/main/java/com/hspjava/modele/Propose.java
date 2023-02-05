@@ -1,4 +1,4 @@
-package modele;
+package com.hspjava.modele;
 
 public class Propose {
     public int prix;

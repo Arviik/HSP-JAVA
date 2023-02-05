@@ -1,4 +1,4 @@
-package modele;
+package com.hspjava.modele;
 
 public class Demande {
     private int id_demande;
