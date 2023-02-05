@@ -11,9 +11,10 @@ module com.example.hspjava {
     requires org.junit.jupiter.api;
     requires org.junit.jupiter.engine;
 
-    requires mysql;
-    requires io.github.palexdev;
+    requires mysql.connector.j;
+    requires MaterialFX;
 
-    opens com.example.hspjava to javafx.fxml;
-    exports com.example.hspjava;
+    opens com.hspjava to javafx.fxml;
+    exports com.hspjava;
+    opens com.hspjava.controller to javafx.fxml;
 }
