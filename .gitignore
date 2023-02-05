@@ -37,4 +37,6 @@ build/
 ### Mac OS ###
 .DS_Store
 
-/.idea
+/.idea/
+/src/main/java/com/hspjava/config/dev.ini
+/src/main/java/com/hspjava/config/prod.ini

@@ -13,6 +13,8 @@ module com.example.hspjava {
 
     requires mysql.connector.j;
     requires MaterialFX;
+    requires java.sql;
+    requires java.ini.parser;
 
     opens com.hspjava to javafx.fxml;
     exports com.hspjava;
