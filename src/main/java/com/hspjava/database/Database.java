@@ -28,7 +28,7 @@ public final class Database {
 
     public Connection getCnx() {
         try {
-            cnx = DriverManager.getConnection(Config.get("host") + ";" + Config.get("dbname") + ";" + Config.get("charset"), Config.get("username"), Config.get("password"));
+            cnx = DriverManager.getConnection(Config.get("url"), Config.get("username"), Config.get("password"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
