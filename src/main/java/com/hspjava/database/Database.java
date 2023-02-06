@@ -8,21 +8,19 @@ import java.sql.SQLException;
 
 public final class Database {
     private static volatile Database instance;
-    public String value;
     private Connection cnx;
 
-    private Database(String value){
-        this.value = value;
+    private Database() {
     }
 
-    public static Database getInstance(String value) {
+    public static Database getInstance() {
         Database result = instance;
         if (result != null) {
             return result;
         }
         synchronized (Database.class) {
             if (instance == null) {
-                instance = new Database(value);
+                instance = new Database();
             }
             return instance;
         }
