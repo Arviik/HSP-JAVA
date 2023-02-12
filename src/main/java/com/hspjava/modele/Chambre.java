@@ -1,13 +1,13 @@
 package com.hspjava.modele;
 
 public class Chambre {
-    private int quantite;
+    private int numero;
 
-    public int getQuantite() {
-        return quantite;
+    public int getNumero() {
+        return numero;
     }
 
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 }
