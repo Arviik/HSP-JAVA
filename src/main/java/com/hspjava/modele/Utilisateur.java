@@ -1,19 +1,13 @@
 package com.hspjava.modele;
 
-public class Utilisateur {
-    private int id_user;
+import com.hspjava.database.Table;
+
+public class Utilisateur extends Table {
+
     private String nom;
     private String prenom;
     private String email;
     private String mot_de_passe;
-
-    public int getId_user() {
-        return id_user;
-    }
-
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
-    }
 
     public String getNom() {
         return nom;

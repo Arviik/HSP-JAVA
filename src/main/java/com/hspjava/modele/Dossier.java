@@ -1,8 +1,10 @@
 package com.hspjava.modele;
 
+import com.hspjava.database.Table;
+
 import java.util.Date;
 
-public class Dossier {
+public class Dossier extends Table {
     private int id_dossier;
     private Date date;
     private String description_symptome;

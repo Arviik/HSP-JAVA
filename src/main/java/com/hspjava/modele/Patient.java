@@ -1,6 +1,8 @@
 package com.hspjava.modele;
 
-public class Patient {
+import com.hspjava.database.Table;
+
+public class Patient extends Table {
     private int id_patient;
     private String nom;
     private String prenom;
