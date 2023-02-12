@@ -1,6 +1,8 @@
 package com.hspjava.modele;
 
-public class Chambre {
+import com.hspjava.database.Table;
+
+public class Chambre extends Table {
     private int numero;
 
     public int getNumero() {

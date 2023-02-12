@@ -1,6 +1,8 @@
 package com.hspjava.modele;
 
-public class Produit {
+import com.hspjava.database.Table;
+
+public class Produit extends Table {
     public int id_produit;
     public String libelle;
     public String description;

@@ -1,6 +1,8 @@
 package com.hspjava.modele;
 
-public class Fournisseur {
+import com.hspjava.database.Table;
+
+public class Fournisseur extends Table {
     private String nom;
 
     public String getNom() {
