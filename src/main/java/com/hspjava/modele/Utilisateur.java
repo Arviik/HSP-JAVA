@@ -9,6 +9,14 @@ public class Utilisateur extends Table {
     private String email;
     private String mot_de_passe;
 
+    public Utilisateur(int id, String nom, String prenom, String email, String mot_de_passe) {
+        super(id);
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.mot_de_passe = mot_de_passe;
+    }
+
     public String getNom() {
         return nom;
     }

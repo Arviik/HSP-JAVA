@@ -5,19 +5,19 @@ import com.hspjava.database.Table;
 import java.util.Date;
 
 public class Hospitalisation extends Table {
-    private int id_hospitalisation;
     private Date date;
     private String description_maladie;
     private int est_termine;
     private int ref_dossier;
     private int ref_chambre;
 
-    public int getId_hospitalisation() {
-        return id_hospitalisation;
-    }
-
-    public void setId_hospitalisation(int id_hospitalisation) {
-        this.id_hospitalisation = id_hospitalisation;
+    public Hospitalisation(int id, Date date, String description_maladie, int est_termine, int ref_dossier, int ref_chambre) {
+        super(id);
+        this.date = date;
+        this.description_maladie = description_maladie;
+        this.est_termine = est_termine;
+        this.ref_dossier = ref_dossier;
+        this.ref_chambre = ref_chambre;
     }
 
     public Date getDate() {

@@ -3,18 +3,17 @@ package com.hspjava.modele;
 import com.hspjava.database.Table;
 
 public class Demande extends Table {
-    private int id_demande;
     private String raison;
     private int est_valide;
     private int ref_gestionnaire_de_stock;
     private int ref_medecin;
 
-    public int getId_demande() {
-        return id_demande;
-    }
-
-    public void setId_demande(int id_demande) {
-        this.id_demande = id_demande;
+    public Demande(int id, String raison, int est_valide, int ref_gestionnaire_de_stock, int ref_medecin) {
+        super(id);
+        this.raison = raison;
+        this.est_valide = est_valide;
+        this.ref_gestionnaire_de_stock = ref_gestionnaire_de_stock;
+        this.ref_medecin = ref_medecin;
     }
 
     public String getRaison() {

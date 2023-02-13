@@ -3,19 +3,19 @@ package com.hspjava.modele;
 import com.hspjava.database.Table;
 
 public class Produit extends Table {
-    public int id_produit;
-    public String libelle;
-    public String description;
-    public int niv_dangerosite;
-    public int stock;
-    public int ref_gestionnaire_de_stock;
+    private String libelle;
+    private String description;
+    private int niv_dangerosite;
+    private int stock;
+    private int ref_gestionnaire_de_stock;
 
-    public int getId_produit() {
-        return id_produit;
-    }
-
-    public void setId_produit(int id_produit) {
-        this.id_produit = id_produit;
+    public Produit(int id, String libelle, String description, int niv_dangerosite, int stock, int ref_gestionnaire_de_stock) {
+        super(id);
+        this.libelle = libelle;
+        this.description = description;
+        this.niv_dangerosite = niv_dangerosite;
+        this.stock = stock;
+        this.ref_gestionnaire_de_stock = ref_gestionnaire_de_stock;
     }
 
     public String getLibelle() {

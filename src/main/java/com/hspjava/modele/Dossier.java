@@ -5,7 +5,6 @@ import com.hspjava.database.Table;
 import java.util.Date;
 
 public class Dossier extends Table {
-    private int id_dossier;
     private Date date;
     private String description_symptome;
     private int niv_gravite;
@@ -13,12 +12,14 @@ public class Dossier extends Table {
     private int ref_patient;
     private int ref_secretaire;
 
-    public int getId_dossier() {
-        return id_dossier;
-    }
-
-    public void setId_dossier(int id_dossier) {
-        this.id_dossier = id_dossier;
+    public Dossier(int id, Date date, String description_symptome, int niv_gravite, int ref_medecin, int ref_patient, int ref_secretaire) {
+        super(id);
+        this.date = date;
+        this.description_symptome = description_symptome;
+        this.niv_gravite = niv_gravite;
+        this.ref_medecin = ref_medecin;
+        this.ref_patient = ref_patient;
+        this.ref_secretaire = ref_secretaire;
     }
 
     public Date getDate() {

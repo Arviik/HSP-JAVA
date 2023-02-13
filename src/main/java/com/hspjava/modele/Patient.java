@@ -3,7 +3,6 @@ package com.hspjava.modele;
 import com.hspjava.database.Table;
 
 public class Patient extends Table {
-    private int id_patient;
     private String nom;
     private String prenom;
     private int num_securite_sociale;
@@ -12,12 +11,15 @@ public class Patient extends Table {
     private String adresse;
     private int ref_secretaire;
 
-    public int getId_patient() {
-        return id_patient;
-    }
-
-    public void setId_patient(int id_patient) {
-        this.id_patient = id_patient;
+    public Patient(int id, String nom, String prenom, int num_securite_sociale, String email, int telephone, String adresse, int ref_secretaire) {
+        super(id);
+        this.nom = nom;
+        this.prenom = prenom;
+        this.num_securite_sociale = num_securite_sociale;
+        this.email = email;
+        this.telephone = telephone;
+        this.adresse = adresse;
+        this.ref_secretaire = ref_secretaire;
     }
 
     public String getNom() {
