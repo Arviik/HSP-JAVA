@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="mainPane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="mainPane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
 <children>
     <Pane layoutX="316.0" layoutY="20.0" prefHeight="360.0" prefWidth="270.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <children>
@@ -20,9 +20,9 @@
                     <Font name="System Bold" size="16.0" />
                 </font>
             </Label>
-            <MFXTextField floatMode="BORDER" floatingText="Email" layoutX="54.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#onLoginFieldTyped" prefHeight="28.0" prefWidth="160.0" styleClass="text-field" />
-            <MFXPasswordField floatMode="BORDER" floatingText="Mot de passe" layoutX="54.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#onLoginFieldTyped" prefHeight="28.0" prefWidth="160.0" styleClass="text-field" />
-            <MFXButton layoutX="96.0" layoutY="150.0" styleClass="button1" text="Connexion" />
+            <MFXTextField fx:id="emailField" floatMode="BORDER" floatingText="Email" layoutX="54.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="160.0" styleClass="text-field" />
+            <MFXPasswordField fx:id="mdpField" floatMode="BORDER" floatingText="Mot de passe" layoutX="54.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="160.0" styleClass="text-field" />
+            <MFXButton layoutX="96.0" layoutY="150.0" onAction="#onSubmit" styleClass="button1" text="Connexion" />
             <Label alignment="CENTER" layoutX="54.0" layoutY="128.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="17.0" prefWidth="160.0" text="Identifiants invalides" textAlignment="CENTER" textFill="#ef6e6b" visible="false" wrapText="true" />
         </children>
     </Pane>
