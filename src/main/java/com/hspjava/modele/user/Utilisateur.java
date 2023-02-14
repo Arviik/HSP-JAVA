@@ -1,4 +1,4 @@
-package com.hspjava.modele;
+package com.hspjava.modele.user;
 
 import com.hspjava.database.Table;
 
@@ -9,8 +9,17 @@ public class Utilisateur extends Table {
     private String email;
     private String mot_de_passe;
 
-    public Utilisateur(int id, String nom, String prenom, String email, String mot_de_passe) {
-        super(id);
+    protected Utilisateur(String tableName) {
+        super(tableName);
+    }
+
+    public Utilisateur(String email, String mot_de_passe) {
+        this.email = email;
+        this.mot_de_passe = mot_de_passe;
+    }
+
+    public Utilisateur(String tableName, int id, String nom, String prenom, String email, String mot_de_passe) {
+        super(tableName,id);
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
