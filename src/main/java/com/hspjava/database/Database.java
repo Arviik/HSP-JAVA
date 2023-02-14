@@ -11,12 +11,16 @@ public final class Database {
     private Connection cnx;
 
     private Database() {
+        try {
+            cnx = DriverManager.getConnection(Config.get("url"), Config.get("username"), Config.get("password"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Database getInstance() {
-        Database result = instance;
-        if (result != null) {
-            return result;
+        if (instance != null) {
+            return instance;
         }
         synchronized (Database.class) {
             if (instance == null) {
@@ -27,11 +31,6 @@ public final class Database {
     }
 
     public Connection getCnx() {
-        try {
-            cnx = DriverManager.getConnection(Config.get("url"), Config.get("username"), Config.get("password"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return cnx;
     }
 }
