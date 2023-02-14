@@ -1,6 +1,6 @@
 package com.hspjava;
 
-import com.hspjava.controller.HelloController;
+import com.hspjava.controller.ConnexionController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,7 +18,7 @@ public class HspApp extends Application {
         setStage(firstStage);
         stage.setTitle("HSP App");
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/icon.png"))));
-        changeScene("hello-view", new HelloController());
+        changeScene("connexion", new ConnexionController());
     }
 
     public static void main(String[] args) {
