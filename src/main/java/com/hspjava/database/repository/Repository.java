@@ -1,4 +1,7 @@
-package com.hspjava.database;
+package com.hspjava.database.repository;
+
+import com.hspjava.database.Database;
+import com.hspjava.database.Table;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

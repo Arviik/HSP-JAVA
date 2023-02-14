@@ -1,6 +1,6 @@
 package com.hspjava.controller;
 
-import com.hspjava.database.Repository;
+import com.hspjava.database.repository.Repository;
 import com.hspjava.modele.Patient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
