@@ -14,9 +14,8 @@ public class UserRepository extends Repository {
         try {
             PreparedStatement req = Database.getInstance().getCnx().prepareStatement("SELECT  * FROM utilisateur WHERE email = ? AND mot_de_passe = ?");
             req.setString(1, user.getEmail());
-            req.setString(2, user.getMot_de_passe());
             ResultSet res = req.executeQuery();
-            if (res.next()) {
+            if (res.next() && BCrypt.checkpw(user.getMot_de_passe(), res.getString(user.getColumns().get(4).field()))) {
                 ConnectedUser.getInstance(
                         res.getInt(user.getColumns().get(0).field()),
                         res.getString(user.getColumns().get(1).field()),

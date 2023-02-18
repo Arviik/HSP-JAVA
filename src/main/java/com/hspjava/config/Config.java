@@ -14,7 +14,7 @@ public class Config {
     }
 
     public static String get(String name) {
-        return Objects.requireNonNull(getIni()).getValue("DataBase", name, String.class);
+        return Objects.requireNonNull(getIni()).getValue("Config", name, String.class);
     }
 
     private static Ini getIni() {
