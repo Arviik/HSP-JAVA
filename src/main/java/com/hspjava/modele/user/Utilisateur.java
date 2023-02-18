@@ -1,12 +1,12 @@
 package com.hspjava.modele.user;
 
+import com.hspjava.config.Config;
 import com.hspjava.database.Database;
 import com.hspjava.database.Table;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class Utilisateur extends Table {
 
@@ -33,18 +33,13 @@ public class Utilisateur extends Table {
     }
 
     public String getUserType() {
-        ArrayList<String> userTypes = new ArrayList<>();
-        userTypes.add("admin");
-        userTypes.add("gestionnaire_de_stock");
-        userTypes.add("medecin");
-        userTypes.add("secretaire");
         StringBuilder query = new StringBuilder();
-        for (String userType : userTypes) {
+        for (Object userType : Config.getUserTypes()) {
             query.append("SELECT '").append(userType).append("' AS table_name FROM ").append(userType).append(" WHERE ref_utilisateur = ? UNION ");
         }
         query.delete(query.length() - 7, query.length()).append(";");
         try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement(String.valueOf(query))) {
-            for (int i = 1; i < userTypes.size() + 1; i++) {
+            for (int i = 1; i < Config.getUserTypes().size() + 1; i++) {
                 req.setInt(i, this.getId());
             }
             ResultSet res = req.executeQuery();

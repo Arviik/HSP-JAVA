@@ -5,6 +5,7 @@ import com.github.vincentrussell.ini.Ini;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 public class Config {
@@ -15,6 +16,10 @@ public class Config {
 
     public static String get(String name) {
         return Objects.requireNonNull(getIni()).getValue("Config", name, String.class);
+    }
+
+    public static List<Object> getUserTypes() {
+        return Objects.requireNonNull(getIni()).getSection("UserTypes").values().stream().toList();
     }
 
     private static Ini getIni() {
