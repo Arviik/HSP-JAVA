@@ -11,12 +11,14 @@ import java.sql.SQLException;
 public class Repository {
 
     public Table save(Table table) {
-        try {
-            PreparedStatement req;
-            if (table.getId() == 0) {
-                req = Database.getInstance().getCnx().prepareStatement(this.generateInsertQuery(table));
-            } else {
-                req = Database.getInstance().getCnx().prepareStatement(this.generateUpdateQuery(table));
+        String query;
+        if (table.getId() == 0) {
+            query = this.generateInsertQuery(table);
+        } else {
+            query = this.generateUpdateQuery(table);
+        }
+        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement(query)) {
+            if (table.getId() != 0) {
                 req.setInt(table.getColumns().size(), table.getId());
             }
             for (int i = 1; i < table.getColumns().size(); i++) {

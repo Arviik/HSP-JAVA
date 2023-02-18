@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public final class Database {
-    private static volatile Database instance;
+    private static Database instance;
     private Connection cnx;
 
     private Database() {

@@ -49,8 +49,7 @@ public abstract class Table {
 
     private void setColumns() {
         ArrayList<Column> columnArrayList = new ArrayList<>();
-        try {
-            PreparedStatement req = Database.getInstance().getCnx().prepareStatement("SHOW COLUMNS FROM " + this.tableName + ";");
+        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement("SHOW COLUMNS FROM " + this.tableName + ";")) {
             ResultSet res = req.executeQuery();
             while (res.next()) {
                 columnArrayList.add(new Column(
