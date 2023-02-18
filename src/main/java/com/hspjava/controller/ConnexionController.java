@@ -2,6 +2,7 @@ package com.hspjava.controller;
 
 import com.hspjava.HspApp;
 import com.hspjava.database.repository.UserRepository;
+import com.hspjava.modele.user.ConnectedUser;
 import com.hspjava.modele.user.Utilisateur;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -19,8 +20,7 @@ public class ConnexionController {
         UserRepository userRepo = new UserRepository();
         Utilisateur user = new Utilisateur(emailField.getText(), mdpField.getText());
         if (userRepo.connexion(user)) {
-            System.out.println("Connection réussi.");
-            HspApp.changeScene("secretaire", new SecretaireController());
+            HspApp.changeScene(ConnectedUser.getInstance().getUserType(), new SecretaireController());
         }
     }
 }
