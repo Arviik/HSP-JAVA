@@ -11,6 +11,16 @@ public class Patient extends Table {
     private String adresse;
     private int ref_secretaire;
 
+    public Patient(String nom, String prenom, int num_securite_sociale, String email, int telephone, String adresse, int ref_secretaire) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.num_securite_sociale = num_securite_sociale;
+        this.email = email;
+        this.telephone = telephone;
+        this.adresse = adresse;
+        this.ref_secretaire = ref_secretaire;
+    }
+
     public Patient(int id, String nom, String prenom, int num_securite_sociale, String email, int telephone, String adresse, int ref_secretaire) {
         super(id);
         this.nom = nom;

@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Utilisateur extends Table {
-
     private String nom;
     private String prenom;
     private String email;

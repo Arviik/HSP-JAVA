@@ -39,10 +39,6 @@ public abstract class Table {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public List<Column> getColumns() {
         return columns;
     }
