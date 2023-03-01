@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class UserRepository extends Repository {
 
     public boolean connexion(Utilisateur user) {
-        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement("SELECT  * FROM utilisateur WHERE email = ?")) {
+        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement("SELECT * FROM utilisateur WHERE email = ?")) {
             req.setString(1, user.getEmail());
             ResultSet res = req.executeQuery();
             if (res.next() && BCrypt.checkpw(user.getMot_de_passe(), res.getString(user.getColumns().get(4).field()))) {

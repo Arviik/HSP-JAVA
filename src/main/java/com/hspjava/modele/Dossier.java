@@ -12,6 +12,15 @@ public class Dossier extends Table {
     private int ref_patient;
     private int ref_secretaire;
 
+    public Dossier(Date date, String description_symptome, int niv_gravite, int ref_medecin, int ref_patient, int ref_secretaire) {
+        this.date = date;
+        this.description_symptome = description_symptome;
+        this.niv_gravite = niv_gravite;
+        this.ref_medecin = ref_medecin;
+        this.ref_patient = ref_patient;
+        this.ref_secretaire = ref_secretaire;
+    }
+
     public Dossier(int id, Date date, String description_symptome, int niv_gravite, int ref_medecin, int ref_patient, int ref_secretaire) {
         super(id);
         this.date = date;

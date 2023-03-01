@@ -3,10 +3,15 @@ package com.hspjava.database.repository;
 import com.hspjava.database.Database;
 import com.hspjava.database.Table;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Repository {
 
@@ -38,6 +43,24 @@ public class Repository {
         }
         return null;
     }
+
+//    public List<? extends Table> getAll(Table table) {
+//        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement("SELECT * FROM " + table.getClass())) {
+//            ResultSet res = req.executeQuery();
+//            Class<? extends Table> tableClass = table.getClass();
+//            Constructor<? extends Table> tableConstructor = tableClass.getConstructor();
+//            ArrayList<? extends Table> tables = new ArrayList<>();
+//            while (res.next()) {
+//                tables.add(tableConstructor.newInstance(res.getMetaData().getColumnCount()));
+//            }
+//            return tables;
+//            //res.getMetaData().getColumnCount()
+//        } catch (SQLException | NoSuchMethodException | InvocationTargetException | InstantiationException |
+//                 IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return Collections.emptyList();
+//    }
 
     private String generateInsertQuery(Table table) {
         StringBuilder query = new StringBuilder("INSERT INTO `"
