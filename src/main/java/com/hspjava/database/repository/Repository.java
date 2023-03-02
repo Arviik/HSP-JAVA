@@ -45,23 +45,32 @@ public class Repository {
         return null;
     }
 
-//    public List<? extends Table> getAll(Table table) {
-//        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement("SELECT * FROM " + table.getClass())) {
-//            ResultSet res = req.executeQuery();
-//            Class<? extends Table> tableClass = table.getClass();
-//            Constructor<? extends Table> tableConstructor = tableClass.getConstructor();
-//            ArrayList<? extends Table> tables = new ArrayList<>();
-//            while (res.next()) {
-//                tables.add(tableConstructor.newInstance(res.getMetaData().getColumnCount()));
-//            }
-//            return tables;
-//            //res.getMetaData().getColumnCount()
-//        } catch (SQLException | NoSuchMethodException | InvocationTargetException | InstantiationException |
-//                 IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//        return Collections.emptyList();
-//    }
+    public List<Patient> getAll(Class<? extends Table> patientClass) {
+        try {
+           List<Column> maListe = (List<Column>) patientClass.getSuperclass().getMethod("demo").invoke(null);
+            System.out.printf(maListe.get(0).field());
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        return Collections.emptyList();
+        //return (List<Patient>) this.generateTableList(table, "SELECT * FROM " + table.getTableName());
+    }
+
+    public ArrayList<Table> getAll(Table table) {
+        return this.generateTableList(table, "SELECT * FROM " + table.getTableName());
+    }
+
+    public List<Table> search(Table table, int field, String value) {
+        return this.generateTableList(table, "SELECT * FROM " + table.getTableName() + " WHERE " + table.getColumns().get(field).field() + " = " + value);
+    }
+
+    /*public List<Dossier> getAll(Dossier table) {
+        return (List<Dossier>) this.generateTableList(table, "SELECT * FROM " + table.getTableName());
+    }*/
 
     private String generateInsertQuery(Table table) {
         StringBuilder query = new StringBuilder("INSERT INTO `"
@@ -88,5 +97,110 @@ public class Repository {
         query.delete(query.length() - 1, query.length());
         query.append(" WHERE ").append(table.getColumns().get(0).field()).append(" = ?;");
         return String.valueOf(query);
+    }
+
+    private ArrayList<Table> generateTableList(Table table, String query) {
+        ArrayList<Table> tables = new ArrayList<>();
+        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement(query)) {
+            ResultSet res = req.executeQuery();
+            switch (table.getTableName()) {
+                case "Chambre" -> {
+                    while (res.next()) {
+                        tables.add(new Chambre(
+                                res.getInt(table.getColumns().get(0).field()),
+                                res.getInt(table.getColumns().get(1).field())
+                        ));
+                    }
+                }
+                case "Demande" -> {
+                    while (res.next()) {
+                        tables.add(new Demande(
+                                res.getInt(table.getColumns().get(0).field()),
+                                res.getString(table.getColumns().get(1).field()),
+                                res.getBoolean(table.getColumns().get(2).field()),
+                                res.getInt(table.getColumns().get(3).field()),
+                                res.getInt(table.getColumns().get(4).field())
+                        ));
+                    }
+                }
+                case "Dossier" -> {
+                    while (res.next()) {
+                        tables.add(new Dossier(
+                                res.getInt(table.getColumns().get(0).field()),
+                                res.getDate(table.getColumns().get(1).field()),
+                                res.getString(table.getColumns().get(2).field()),
+                                res.getInt(table.getColumns().get(3).field()),
+                                res.getInt(table.getColumns().get(4).field()),
+                                res.getInt(table.getColumns().get(5).field()),
+                                res.getInt(table.getColumns().get(6).field())
+                        ));
+                    }
+                }
+                case "Fournisseur" -> {
+                    while (res.next()) {
+                        tables.add(new Fournisseur(
+                                res.getInt(table.getColumns().get(0).field()),
+                                res.getString(table.getColumns().get(1).field())
+                        ));
+                    }
+                }
+                case "Hospitalisation" -> {
+                    while (res.next()) {
+                        tables.add(new Hospitalisation(
+                                res.getInt(table.getColumns().get(0).field()),
+                                res.getDate(table.getColumns().get(1).field()),
+                                res.getString(table.getColumns().get(2).field()),
+                                res.getInt(table.getColumns().get(3).field()),
+                                res.getInt(table.getColumns().get(4).field()),
+                                res.getInt(table.getColumns().get(5).field())
+                        ));
+                    }
+                }
+                case "Patient" -> {
+                    while (res.next()) {
+                        tables.add(new Patient(
+                                res.getInt(table.getColumns().get(0).field()),
+                                res.getString(table.getColumns().get(1).field()),
+                                res.getString(table.getColumns().get(2).field()),
+                                res.getInt(table.getColumns().get(3).field()),
+                                res.getString(table.getColumns().get(4).field()),
+                                res.getInt(table.getColumns().get(5).field()),
+                                res.getString(table.getColumns().get(6).field()),
+                                res.getInt(table.getColumns().get(7).field())
+                        ));
+                    }
+                }
+                case "Produit" -> {
+                    while (res.next()) {
+                        tables.add(new Produit(
+                                res.getInt(table.getColumns().get(0).field()),
+                                res.getString(table.getColumns().get(1).field()),
+                                res.getString(table.getColumns().get(2).field()),
+                                res.getInt(table.getColumns().get(3).field()),
+                                res.getInt(table.getColumns().get(4).field()),
+                                res.getInt(table.getColumns().get(5).field())
+                        ));
+                    }
+                }
+                case "Utilisateur" -> {
+                    while (res.next()) {
+                        tables.add(new Utilisateur(
+                                res.getInt(table.getColumns().get(0).field()),
+                                res.getString(table.getColumns().get(1).field()),
+                                res.getString(table.getColumns().get(2).field()),
+                                res.getString(table.getColumns().get(3).field()),
+                                res.getString(table.getColumns().get(4).field())
+                        ));
+                    }
+                }
+                default -> {
+                    return tables;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tables;
+        //TODO return tables ou return null ???
     }
 }
