@@ -1,10 +1,10 @@
 package com.hspjava.database.repository;
 
+import com.hspjava.database.Column;
 import com.hspjava.database.Database;
 import com.hspjava.modele.*;
 import com.hspjava.modele.user.Utilisateur;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
@@ -31,10 +31,10 @@ public class Repository {
                 Method method = table.getClass().getMethod("get"
                         + table.getColumns().get(i).field().substring(0, 1).toUpperCase()
                         + table.getColumns().get(i).field().substring(1));
-                switch (table.getColumns().get(i).type()) {
+                switch (table.getColumns().get(i).type().split("\\(")[0]) {
                     case "int" -> req.setInt(i, (Integer) method.invoke(table));
-                    case "varchar(255)", "text", "datetime" -> req.setString(i, (String) method.invoke(table));
-                    case "tinyint(1)" -> req.setBoolean(i, (Boolean) method.invoke(table));
+                    case "varchar", "text", "datetime" -> req.setString(i, (String) method.invoke(table));
+                    case "tinyint" -> req.setBoolean(i, (Boolean) method.invoke(table));
                     default -> throw new RuntimeException();
                 }
             }
