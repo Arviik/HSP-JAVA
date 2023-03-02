@@ -23,7 +23,7 @@ public class Utilisateur extends Table {
         this.mot_de_passe = mot_de_passe;
     }
 
-    public Utilisateur(String tableName, int id, String nom, String prenom, String email, String mot_de_passe) {
+    protected Utilisateur(String tableName, int id, String nom, String prenom, String email, String mot_de_passe) {
         super(tableName, id);
         this.nom = nom;
         this.prenom = prenom;
