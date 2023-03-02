@@ -1,18 +1,22 @@
 package com.hspjava.controller;
 
 import com.hspjava.database.repository.Repository;
+import com.hspjava.modele.Dossier;
 import com.hspjava.modele.Patient;
+import com.hspjava.modele.Table;
 import com.hspjava.modele.user.ConnectedUser;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
-import java.util.Comparator;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class SecretaireController implements Initializable {
     private final Repository repo = new Repository();
@@ -27,7 +31,7 @@ public class SecretaireController implements Initializable {
     private MFXTextField descriptionSymptomeField;
 
     @FXML
-    private MFXTableView<?> dossierTable;
+    private MFXTableView<Dossier> dossierTable;
 
     @FXML
     private MFXTextField emailField;
@@ -39,13 +43,13 @@ public class SecretaireController implements Initializable {
     private MFXTextField nomField;
 
     @FXML
-    private MFXComboBox<?> numGraviteField;
+    private MFXComboBox<String> numGraviteField;
 
     @FXML
     private MFXTextField numSecuriteSocialField;
 
     @FXML
-    private MFXComboBox<?> patientField;
+    private MFXComboBox<Patient> patientField;
 
     @FXML
     private MFXTableView<Patient> patientTable;
@@ -58,6 +62,11 @@ public class SecretaireController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupPatientTable();
+        setupPatientField();
+    }
+
+    private void setupPatientTable() {
         MFXTableColumn<Patient> nomColumn = new MFXTableColumn<>("Nom", true, Comparator.comparing(Patient::getNom));
         MFXTableColumn<Patient> prenomColumn = new MFXTableColumn<>("Prénom", true, Comparator.comparing(Patient::getPrenom));
         MFXTableColumn<Patient> numSecuriteSocialColumn = new MFXTableColumn<>("Numéro de sécurité sociale", true, Comparator.comparing(Patient::getNum_securite_sociale));
@@ -86,9 +95,29 @@ public class SecretaireController implements Initializable {
         patientTable.getFilters().add(new IntegerFilter<>("Téléphone", Patient::getTelephone));
         patientTable.getFilters().add(new StringFilter<>("Adresse", Patient::getAdresse));
 
-        //patientTable.getItems().add((Patient) repo.getAll(new Patient()));
+        ArrayList<? super Patient> st = repo.getAll(new Patient());
+        //patientTable.getItems().addAll((Collection<? extends Patient>) st);
+
+        patientTable.setItems((ObservableList<Patient>) st);
+
+        //patientTable.getItems().addAll(repo.getAll(new Patient()));
+        //patientTable.getItems().addAll(repo.getAll(Patient.class));
+
+        //TODO new Patient() ou Patient.class
+        //TODO optimiser les req à la bdd en mettant repo.getAll(new Patient()) dans une variable
     }
 
+    private void setupPatientField() {
+        //ArrayList<? super Patient> st = repo.getAll(new Patient());
+
+        //patientField.getItems().addAll((Collection<? extends Patient>) st);
+        //patientField.setConverter(FunctionalStringConverter.to(patient -> (patient == null) ? "" : patient.getNom() + " " + patient.getPrenom()));
+    }
+
+    private void setupNumGraviteField() {
+        numGraviteField.getItems().addAll("1","2","3","4","5");
+        numGraviteField.setConverter(FunctionalStringConverter.to(Object::toString));
+    }
     @FXML
     void onSubmitPatient() {
         Patient patient = new Patient(
@@ -101,14 +130,21 @@ public class SecretaireController implements Initializable {
                 ConnectedUser.getInstance().getId()
         );
         repo.save(patient);
+        patientTable.getItems().add(patient);
     }
 
     @FXML
     void onSubmitDossier() {
-//        Dossier dossier = new Dossier(
-//                dateField.getCurrentDate() + heureField.getText(),
-//                descriptionSymptomeField.getText(),
-//                numGraviteField.getText(),
-//        );
+        //TODO initialiser Date avec la valeur de epoch
+        Dossier dossier = new Dossier(
+                new Date(dateField.getCurrentDate() + heureField.getText()),
+                descriptionSymptomeField.getText(),
+                Integer.parseInt(numGraviteField.getText()),
+                0,
+                patientField.getValue().getId(),
+                ConnectedUser.getInstance().getId()
+        );
+        repo.save(dossier);
+        dossierTable.getItems().add(dossier);
     }
 }

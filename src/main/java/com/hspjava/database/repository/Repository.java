@@ -65,6 +65,7 @@ public class Repository {
     }
 
     public List<Table> search(Table table, int field, String value) {
+        //TODO corriger la faille d'injection sql
         return this.generateTableList(table, "SELECT * FROM " + table.getTableName() + " WHERE " + table.getColumns().get(field).field() + " = " + value);
     }
 
