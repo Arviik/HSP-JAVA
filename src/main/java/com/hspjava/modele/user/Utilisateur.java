@@ -31,6 +31,14 @@ public class Utilisateur extends Table {
         this.mot_de_passe = mot_de_passe;
     }
 
+    public Utilisateur(int id, String nom, String prenom, String email, String mot_de_passe) {
+        super(id);
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.mot_de_passe = mot_de_passe;
+    }
+
     public String getUserType() {
         StringBuilder query = new StringBuilder();
         for (Object userType : Config.getUserTypes()) {
