@@ -16,6 +16,7 @@ module com.example.hspjava {
     requires java.sql;
     requires java.ini.parser;
     requires jbcrypt;
+    requires jakarta.mail;
 
     opens com.hspjava to javafx.fxml;
     exports com.hspjava;
