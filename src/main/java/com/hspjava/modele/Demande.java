@@ -2,11 +2,11 @@ package com.hspjava.modele;
 
 public class Demande extends Table {
     private String raison;
-    private int est_valide;
+    private boolean est_valide;
     private int ref_gestionnaire_de_stock;
     private int ref_medecin;
 
-    public Demande(int id, String raison, int est_valide, int ref_gestionnaire_de_stock, int ref_medecin) {
+    public Demande(int id, String raison, boolean est_valide, int ref_gestionnaire_de_stock, int ref_medecin) {
         super(id);
         this.raison = raison;
         this.est_valide = est_valide;
@@ -22,11 +22,11 @@ public class Demande extends Table {
         this.raison = raison;
     }
 
-    public int getEst_valide() {
+    public boolean getEst_valide() {
         return est_valide;
     }
 
-    public void setEst_valide(int est_valide) {
+    public void setEst_valide(boolean est_valide) {
         this.est_valide = est_valide;
     }
 
