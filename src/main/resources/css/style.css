@@ -68,9 +68,11 @@
     -fx-background-radius: 30;
     -fx-border-radius: 30;
     -fx-wrap-text: true;
+
 }
 
 .text-field .floating-text {
     -fx-background-color: color1;
     -fx-text-fill: black;
+    -fx-border-color: -secondary-gradient
 }
