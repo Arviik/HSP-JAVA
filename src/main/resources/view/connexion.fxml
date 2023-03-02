@@ -24,6 +24,11 @@
             <MFXPasswordField fx:id="mdpField" floatMode="BORDER" floatingText="Mot de passe" layoutX="54.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="160.0" styleClass="text-field" />
             <MFXButton layoutX="96.0" layoutY="150.0" onAction="#onSubmit" styleClass="button1" text="Connexion" />
             <Label alignment="CENTER" layoutX="54.0" layoutY="128.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="17.0" prefWidth="160.0" text="Identifiants invalides" textAlignment="CENTER" textFill="#ef6e6b" visible="false" wrapText="true" />
+            <Label alignment="CENTER" layoutX="19.0" layoutY="329.0" onMouseClicked="#onForgotPasswordClicked" prefHeight="17.0" prefWidth="235.0" text="Mot de passe oublier ?" textFill="#4160ff">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
         </children>
     </Pane>
     <Line endY="360.0" layoutX="300.0" layoutY="20.0" stroke="#4160FF" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="20.0" />

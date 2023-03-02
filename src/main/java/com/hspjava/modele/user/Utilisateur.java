@@ -18,6 +18,9 @@ public class Utilisateur extends Table {
         super(tableName);
     }
 
+    public Utilisateur() {
+    }
+
     public Utilisateur(String email, String mot_de_passe) {
         this.email = email;
         this.mot_de_passe = mot_de_passe;
