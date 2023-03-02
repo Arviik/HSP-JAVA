@@ -1,7 +1,5 @@
 package com.hspjava.modele;
 
-import com.hspjava.database.Table;
-
 public class Demande extends Table {
     private String raison;
     private int est_valide;

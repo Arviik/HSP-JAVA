@@ -1,4 +1,7 @@
-package com.hspjava.database;
+package com.hspjava.modele;
+
+import com.hspjava.database.Column;
+import com.hspjava.database.Database;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,6 +40,10 @@ public abstract class Table {
 
     public int getId() {
         return id;
+    }
+
+    public String getTableName() {
+        return tableName;
     }
 
     public List<Column> getColumns() {

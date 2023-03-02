@@ -1,7 +1,8 @@
 package com.hspjava.database.repository;
 
 import com.hspjava.database.Database;
-import com.hspjava.database.Table;
+import com.hspjava.modele.*;
+import com.hspjava.modele.user.Utilisateur;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

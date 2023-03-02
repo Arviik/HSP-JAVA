@@ -1,7 +1,5 @@
 package com.hspjava.modele;
 
-import com.hspjava.database.Table;
-
 import java.util.Date;
 
 public class Hospitalisation extends Table {

@@ -2,7 +2,7 @@ package com.hspjava.modele.user;
 
 import com.hspjava.config.Config;
 import com.hspjava.database.Database;
-import com.hspjava.database.Table;
+import com.hspjava.modele.Table;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
