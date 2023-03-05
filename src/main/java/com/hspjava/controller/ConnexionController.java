@@ -21,7 +21,12 @@ public class ConnexionController {
         UserRepository userRepo = new UserRepository();
         Utilisateur user = new Utilisateur(emailField.getText(), mdpField.getText());
         if (userRepo.connexion(user)) {
+            System.out.println("youpi");
             HspApp.changeScene(ConnectedUser.getInstance().getUserType(), new SecretaireController());
+        }
+        else{
+
+            System.out.println("pas youpi");
         }
     }
 
