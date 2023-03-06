@@ -3,20 +3,22 @@ package com.hspjava.controller;
 import com.hspjava.database.repository.Repository;
 import com.hspjava.modele.Dossier;
 import com.hspjava.modele.Patient;
-import com.hspjava.modele.Table;
 import com.hspjava.modele.user.ConnectedUser;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.ResourceBundle;
 
 public class SecretaireController implements Initializable {
     private final Repository repo = new Repository();
@@ -64,6 +66,7 @@ public class SecretaireController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupPatientTable();
         setupPatientField();
+        setupNumGraviteField();
     }
 
     private void setupPatientTable() {
@@ -71,21 +74,21 @@ public class SecretaireController implements Initializable {
         MFXTableColumn<Patient> prenomColumn = new MFXTableColumn<>("Prénom", true, Comparator.comparing(Patient::getPrenom));
         MFXTableColumn<Patient> numSecuriteSocialColumn = new MFXTableColumn<>("Numéro de sécurité sociale", true, Comparator.comparing(Patient::getNum_securite_sociale));
         MFXTableColumn<Patient> emailColumn = new MFXTableColumn<>("Email", true, Comparator.comparing(Patient::getEmail));
-        MFXTableColumn<Patient> telphoneColumn = new MFXTableColumn<>("Téléphone", true, Comparator.comparing(Patient::getTelephone));
+        MFXTableColumn<Patient> telephoneColumn = new MFXTableColumn<>("Téléphone", true, Comparator.comparing(Patient::getTelephone));
         MFXTableColumn<Patient> adresseColumn = new MFXTableColumn<>("Adresse", true, Comparator.comparing(Patient::getAdresse));
 
         nomColumn.setRowCellFactory(patient -> new MFXTableRowCell<>(Patient::getNom));
         prenomColumn.setRowCellFactory(patient -> new MFXTableRowCell<>(Patient::getPrenom));
         numSecuriteSocialColumn.setRowCellFactory(patient -> new MFXTableRowCell<>(Patient::getNum_securite_sociale));
         emailColumn.setRowCellFactory(patient -> new MFXTableRowCell<>(Patient::getEmail));
-        telphoneColumn.setRowCellFactory(patient -> new MFXTableRowCell<>(Patient::getTelephone));
+        telephoneColumn.setRowCellFactory(patient -> new MFXTableRowCell<>(Patient::getTelephone));
         adresseColumn.setRowCellFactory(patient -> new MFXTableRowCell<>(Patient::getAdresse));
 
         patientTable.getTableColumns().add(nomColumn);
         patientTable.getTableColumns().add(prenomColumn);
         patientTable.getTableColumns().add(numSecuriteSocialColumn);
         patientTable.getTableColumns().add(emailColumn);
-        patientTable.getTableColumns().add(telphoneColumn);
+        patientTable.getTableColumns().add(telephoneColumn);
         patientTable.getTableColumns().add(adresseColumn);
 
         patientTable.getFilters().add(new StringFilter<>("Nom", Patient::getNom));
@@ -95,29 +98,22 @@ public class SecretaireController implements Initializable {
         patientTable.getFilters().add(new IntegerFilter<>("Téléphone", Patient::getTelephone));
         patientTable.getFilters().add(new StringFilter<>("Adresse", Patient::getAdresse));
 
-        ArrayList<? super Patient> st = repo.getAll(new Patient());
-        //patientTable.getItems().addAll((Collection<? extends Patient>) st);
-
-        patientTable.setItems((ObservableList<Patient>) st);
-
-        //patientTable.getItems().addAll(repo.getAll(new Patient()));
-        //patientTable.getItems().addAll(repo.getAll(Patient.class));
-
-        //TODO new Patient() ou Patient.class
-        //TODO optimiser les req à la bdd en mettant repo.getAll(new Patient()) dans une variable
+        ArrayList<? super Patient> listPatient = (ArrayList<? super Patient>) repo.getAll(new Patient());
+        //ArrayList<? super Patient> st2 = (ArrayList<? super Patient>) repo.search(new Patient(), 6, "test2");
+        patientTable.getItems().addAll((Collection<? extends Patient>) listPatient);
     }
 
     private void setupPatientField() {
-        //ArrayList<? super Patient> st = repo.getAll(new Patient());
-
-        //patientField.getItems().addAll((Collection<? extends Patient>) st);
-        //patientField.setConverter(FunctionalStringConverter.to(patient -> (patient == null) ? "" : patient.getNom() + " " + patient.getPrenom()));
+        ArrayList<? super Patient> st = (ArrayList<? super Patient>) repo.getAll(new Patient());
+        patientField.getItems().addAll((Collection<? extends Patient>) st);
+        patientField.setConverter(FunctionalStringConverter.to(patient -> (patient == null) ? "" : patient.getNom() + " " + patient.getPrenom()));
     }
 
     private void setupNumGraviteField() {
-        numGraviteField.getItems().addAll("1","2","3","4","5");
-        numGraviteField.setConverter(FunctionalStringConverter.to(Object::toString));
+        numGraviteField.getItems().addAll("1", "2", "3", "4", "5");
+        numGraviteField.setConverter(FunctionalStringConverter.to(string -> (string == null) ? "" : string));
     }
+
     @FXML
     void onSubmitPatient() {
         Patient patient = new Patient(
@@ -134,11 +130,12 @@ public class SecretaireController implements Initializable {
     }
 
     @FXML
-    void onSubmitDossier() {
+    void onSubmitDossier() throws ParseException {
         //TODO initialiser Date avec la valeur de epoch
         Dossier dossier = new Dossier(
-                new Date(dateField.getCurrentDate() + heureField.getText()),
+                new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateField.getValue().toString() + " " + heureField.getText()),
                 descriptionSymptomeField.getText(),
+                "",
                 Integer.parseInt(numGraviteField.getText()),
                 0,
                 patientField.getValue().getId(),

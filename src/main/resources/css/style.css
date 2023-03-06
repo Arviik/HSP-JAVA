@@ -74,5 +74,5 @@
 .text-field .floating-text {
     -fx-background-color: color1;
     -fx-text-fill: black;
-    -fx-border-color: -secondary-gradient
+    /*-fx-border-color: -secondary-gradient*/
 }

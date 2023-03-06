@@ -1,6 +1,5 @@
 package com.hspjava.database.repository;
 
-import com.hspjava.database.Column;
 import com.hspjava.database.Database;
 import com.hspjava.modele.*;
 import com.hspjava.modele.user.Utilisateur;
@@ -10,6 +9,7 @@ import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,13 +31,19 @@ public class Repository {
                 Method method = table.getClass().getMethod("get"
                         + table.getColumns().get(i).field().substring(0, 1).toUpperCase()
                         + table.getColumns().get(i).field().substring(1));
-                switch (table.getColumns().get(i).type().split("\\(")[0]) {
-                    case "int" -> req.setInt(i, (Integer) method.invoke(table));
-                    case "varchar", "text", "datetime" -> req.setString(i, (String) method.invoke(table));
-                    case "tinyint" -> req.setBoolean(i, (Boolean) method.invoke(table));
-                    default -> throw new RuntimeException();
+                System.out.println(method.invoke(table));
+                if (method.invoke(table) == null) {
+                    req.setNull(i, Types.INTEGER);
+                } else {
+                    switch (table.getColumns().get(i).type().split("\\(")[0]) {
+                        case "int" -> req.setInt(i, (Integer) method.invoke(table));
+                        case "varchar", "text", "datetime" -> req.setString(i, (String) method.invoke(table));
+                        case "tinyint" -> req.setBoolean(i, (Boolean) method.invoke(table));
+                        default -> throw new RuntimeException();
+                    }
                 }
             }
+            System.out.println(req.toString());
             req.executeUpdate();
         } catch (SQLException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
@@ -45,33 +51,29 @@ public class Repository {
         return null;
     }
 
-    public List<Patient> getAll(Class<? extends Table> patientClass) {
-        try {
-           List<Column> maListe = (List<Column>) patientClass.getSuperclass().getMethod("demo").invoke(null);
-            System.out.printf(maListe.get(0).field());
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
+    public List<Table> getAll(Table table) {
+        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement("SELECT * FROM " + table.getTableName())) {
+            return this.generateTableList(table, req);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return Collections.emptyList();
-        //return (List<Patient>) this.generateTableList(table, "SELECT * FROM " + table.getTableName());
-    }
-
-    public ArrayList<Table> getAll(Table table) {
-        return this.generateTableList(table, "SELECT * FROM " + table.getTableName());
     }
 
     public List<Table> search(Table table, int field, String value) {
-        //TODO corriger la faille d'injection sql
-        return this.generateTableList(table, "SELECT * FROM " + table.getTableName() + " WHERE " + table.getColumns().get(field).field() + " = " + value);
+        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement("SELECT * FROM " + table.getTableName() + " WHERE " + table.getColumns().get(field).field() + " = ?;")) {
+            switch (table.getColumns().get(field).type().split("\\(")[0]) {
+                case "int" -> req.setInt(1, Integer.parseInt(value));
+                case "varchar", "text", "datetime" -> req.setString(1, value);
+                case "tinyint" -> req.setBoolean(1, Boolean.parseBoolean(value));
+                default -> throw new RuntimeException();
+            }
+            return this.generateTableList(table, req);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
     }
-
-    /*public List<Dossier> getAll(Dossier table) {
-        return (List<Dossier>) this.generateTableList(table, "SELECT * FROM " + table.getTableName());
-    }*/
 
     private String generateInsertQuery(Table table) {
         StringBuilder query = new StringBuilder("INSERT INTO `"
@@ -100,9 +102,9 @@ public class Repository {
         return String.valueOf(query);
     }
 
-    private ArrayList<Table> generateTableList(Table table, String query) {
+    private ArrayList<Table> generateTableList(Table table, PreparedStatement req) {
         ArrayList<Table> tables = new ArrayList<>();
-        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement(query)) {
+        try (req) {
             ResultSet res = req.executeQuery();
             switch (table.getTableName()) {
                 case "Chambre" -> {
@@ -130,10 +132,11 @@ public class Repository {
                                 res.getInt(table.getColumns().get(0).field()),
                                 res.getDate(table.getColumns().get(1).field()),
                                 res.getString(table.getColumns().get(2).field()),
-                                res.getInt(table.getColumns().get(3).field()),
+                                res.getString(table.getColumns().get(3).field()),
                                 res.getInt(table.getColumns().get(4).field()),
                                 res.getInt(table.getColumns().get(5).field()),
-                                res.getInt(table.getColumns().get(6).field())
+                                res.getInt(table.getColumns().get(6).field()),
+                                res.getInt(table.getColumns().get(7).field())
                         ));
                     }
                 }
@@ -202,6 +205,5 @@ public class Repository {
             e.printStackTrace();
         }
         return tables;
-        //TODO return tables ou return null ???
     }
 }

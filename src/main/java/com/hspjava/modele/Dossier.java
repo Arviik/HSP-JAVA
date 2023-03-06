@@ -1,40 +1,44 @@
 package com.hspjava.modele;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Dossier extends Table {
-    private Date date;
+    private Date date_heure;
     private String description_symptome;
+    private String ordonnance;
     private int niv_gravite;
     private int ref_medecin;
     private int ref_patient;
     private int ref_secretaire;
 
-    public Dossier(Date date, String description_symptome, int niv_gravite, int ref_medecin, int ref_patient, int ref_secretaire) {
-        this.date = date;
+    public Dossier(Date date_heure, String description_symptome, String ordonnance, int niv_gravite, int ref_medecin, int ref_patient, int ref_secretaire) {
+        this.date_heure = date_heure;
         this.description_symptome = description_symptome;
+        this.ordonnance = ordonnance;
         this.niv_gravite = niv_gravite;
         this.ref_medecin = ref_medecin;
         this.ref_patient = ref_patient;
         this.ref_secretaire = ref_secretaire;
     }
 
-    public Dossier(int id, Date date, String description_symptome, int niv_gravite, int ref_medecin, int ref_patient, int ref_secretaire) {
+    public Dossier(int id, Date date_heure, String description_symptome, String ordonnance, int niv_gravite, int ref_medecin, int ref_patient, int ref_secretaire) {
         super(id);
-        this.date = date;
+        this.date_heure = date_heure;
         this.description_symptome = description_symptome;
+        this.ordonnance = ordonnance;
         this.niv_gravite = niv_gravite;
         this.ref_medecin = ref_medecin;
         this.ref_patient = ref_patient;
         this.ref_secretaire = ref_secretaire;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate_heure() {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date_heure);
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate_heure(Date date_heure) {
+        this.date_heure = date_heure;
     }
 
     public String getDescription_symptome() {
@@ -45,6 +49,14 @@ public class Dossier extends Table {
         this.description_symptome = description_symptome;
     }
 
+    public String getOrdonnance() {
+        return ordonnance;
+    }
+
+    public void setOrdonnance(String ordonnance) {
+        this.ordonnance = ordonnance;
+    }
+
     public int getNiv_gravite() {
         return niv_gravite;
     }
@@ -53,7 +65,10 @@ public class Dossier extends Table {
         this.niv_gravite = niv_gravite;
     }
 
-    public int getRef_medecin() {
+    public Object getRef_medecin() {
+        if (ref_medecin == 0) {
+            return null;
+        }
         return ref_medecin;
     }
 

@@ -9,6 +9,9 @@ public class Patient extends Table {
     private String adresse;
     private int ref_secretaire;
 
+    public Patient() {
+    }
+
     public Patient(String nom, String prenom, int num_securite_sociale, String email, int telephone, String adresse, int ref_secretaire) {
         this.nom = nom;
         this.prenom = prenom;
