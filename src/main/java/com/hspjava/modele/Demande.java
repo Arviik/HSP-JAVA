@@ -6,6 +6,10 @@ public class Demande extends Table {
     private int ref_gestionnaire_de_stock;
     private int ref_medecin;
 
+    public Demande(String raison,int ref_medecin) {
+        this.raison = raison;
+        this.ref_medecin = ref_medecin;
+    }
     public Demande(int id, String raison, boolean est_valide, int ref_gestionnaire_de_stock, int ref_medecin) {
         super(id);
         this.raison = raison;

@@ -5,6 +5,12 @@ public class Concerne {
     private int ref_demande;
     private int ref_produit;
 
+    public Concerne(int quantite, int ref_demande, int ref_produit){
+        this.quantite= quantite;
+        this.ref_demande= ref_demande;
+        this.ref_produit= ref_produit;
+    }
+
     public int getQuantite() {
         return quantite;
     }

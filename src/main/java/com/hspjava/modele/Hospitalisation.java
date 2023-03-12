@@ -9,6 +9,13 @@ public class Hospitalisation extends Table {
     private int ref_dossier;
     private int ref_chambre;
 
+    public Hospitalisation(Date date, String description_maladie,int ref_dossier, int ref_chambre){
+        this.date = date;
+        this.description_maladie = description_maladie;
+        this.ref_dossier = ref_dossier;
+        this.ref_chambre = ref_chambre;
+    }
+
     public Hospitalisation(int id, Date date, String description_maladie, int est_termine, int ref_dossier, int ref_chambre) {
         super(id);
         this.date = date;
