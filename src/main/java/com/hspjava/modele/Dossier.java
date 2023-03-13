@@ -12,6 +12,9 @@ public class Dossier extends Table {
     private int ref_patient;
     private int ref_secretaire;
 
+    public Dossier() {
+    }
+
     public Dossier(Date date_heure, String description_symptome, String ordonnance, int niv_gravite, int ref_medecin, int ref_patient, int ref_secretaire) {
         this.date_heure = date_heure;
         this.description_symptome = description_symptome;

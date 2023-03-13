@@ -6,10 +6,7 @@ import com.hspjava.modele.user.Utilisateur;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +20,7 @@ public class Repository {
         } else {
             query = this.generateUpdateQuery(table);
         }
-        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement(query)) {
+        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             if (table.getId() != 0) {
                 req.setInt(table.getColumns().size(), table.getId());
             }
@@ -31,7 +28,6 @@ public class Repository {
                 Method method = table.getClass().getMethod("get"
                         + table.getColumns().get(i).field().substring(0, 1).toUpperCase()
                         + table.getColumns().get(i).field().substring(1));
-                System.out.println(method.invoke(table));
                 if (method.invoke(table) == null) {
                     req.setNull(i, Types.INTEGER);
                 } else {
@@ -43,12 +39,17 @@ public class Repository {
                     }
                 }
             }
-            System.out.println(req.toString());
             req.executeUpdate();
+            if (table.getId() == 0) {
+                ResultSet res = req.getGeneratedKeys();
+                if (res.next()) {
+                    table.setId(res.getInt(1));
+                }
+            }
         } catch (SQLException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        return null;
+        return table;
     }
 
     public List<Table> getAll(Table table) {

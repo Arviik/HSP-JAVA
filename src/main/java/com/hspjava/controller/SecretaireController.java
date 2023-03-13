@@ -11,6 +11,7 @@ import io.github.palexdev.materialfx.filter.StringFilter;
 import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.text.ParseException;
@@ -64,9 +65,47 @@ public class SecretaireController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupDossierTable();
         setupPatientTable();
         setupPatientField();
         setupNumGraviteField();
+    }
+
+    private void setupDossierTable() {
+        MFXTableColumn<Dossier> dateHeureColumn = new MFXTableColumn<>("Date et heure", true, Comparator.comparing(Dossier::getDate_heure));
+        MFXTableColumn<Dossier> descriptionSymptomeColumn = new MFXTableColumn<>("Symptome", true, Comparator.comparing(Dossier::getDescription_symptome));
+        MFXTableColumn<Dossier> ordonnanceColumn = new MFXTableColumn<>("Ordonnace", true, Comparator.comparing(Dossier::getOrdonnance));
+        MFXTableColumn<Dossier> nivGraviteColumn = new MFXTableColumn<>("Gravité", true, Comparator.comparing(Dossier::getNiv_gravite));
+        MFXTableColumn<Dossier> medecinColumn = new MFXTableColumn<>("Medecin", true, Comparator.comparing(Dossier::getNiv_gravite));
+        MFXTableColumn<Dossier> patientColumn = new MFXTableColumn<>("Patient", true, Comparator.comparing(Dossier::getRef_patient));
+        MFXTableColumn<Dossier> secretaireColumn = new MFXTableColumn<>("Secretaire", true, Comparator.comparing(Dossier::getRef_secretaire));
+
+        dateHeureColumn.setRowCellFactory(dossier -> new MFXTableRowCell<>(Dossier::getDate_heure));
+        descriptionSymptomeColumn.setRowCellFactory(dossier -> new MFXTableRowCell<>(Dossier::getDescription_symptome));
+        ordonnanceColumn.setRowCellFactory(dossier -> new MFXTableRowCell<>(Dossier::getOrdonnance));
+        nivGraviteColumn.setRowCellFactory(dossier -> new MFXTableRowCell<>(Dossier::getNiv_gravite));
+        medecinColumn.setRowCellFactory(dossier -> new MFXTableRowCell<>(Dossier::getRef_medecin));
+        patientColumn.setRowCellFactory(dossier -> new MFXTableRowCell<>(Dossier::getRef_patient));
+        secretaireColumn.setRowCellFactory(dossier -> new MFXTableRowCell<>(Dossier::getRef_secretaire));
+
+        dossierTable.getTableColumns().add(dateHeureColumn);
+        dossierTable.getTableColumns().add(descriptionSymptomeColumn);
+        dossierTable.getTableColumns().add(ordonnanceColumn);
+        dossierTable.getTableColumns().add(nivGraviteColumn);
+        dossierTable.getTableColumns().add(medecinColumn);
+        dossierTable.getTableColumns().add(patientColumn);
+        dossierTable.getTableColumns().add(secretaireColumn);
+
+        dossierTable.getFilters().add(new StringFilter<>("Date et heure", Dossier::getDate_heure));
+        dossierTable.getFilters().add(new StringFilter<>("Symptome", Dossier::getDescription_symptome));
+        dossierTable.getFilters().add(new StringFilter<>("Ordonnace", Dossier::getOrdonnance));
+        dossierTable.getFilters().add(new IntegerFilter<>("Gravité", Dossier::getNiv_gravite));
+        dossierTable.getFilters().add(new IntegerFilter<>("Medecin", Dossier::getNiv_gravite));
+        dossierTable.getFilters().add(new IntegerFilter<>("Patient", Dossier::getRef_patient));
+        dossierTable.getFilters().add(new IntegerFilter<>("Secretaire", Dossier::getRef_secretaire));
+
+        ArrayList<? super Dossier> listdossier = (ArrayList<? super Dossier>) repo.getAll(new Dossier());
+        dossierTable.getItems().addAll((Collection<? extends Dossier>) listdossier);
     }
 
     private void setupPatientTable() {
@@ -126,7 +165,16 @@ public class SecretaireController implements Initializable {
                 ConnectedUser.getInstance().getId()
         );
         repo.save(patient);
-        patientTable.getItems().add(patient);
+        if (patient.getId() != 0) {
+            nomField.clear();
+            prenomField.clear();
+            numSecuriteSocialField.clear();
+            emailField.clear();
+            telephoneField.clear();
+            adresseField.clear();
+            patientTable.getItems().add(patient);
+            patientField.getItems().add(patient);
+        }
     }
 
     @FXML
@@ -142,6 +190,23 @@ public class SecretaireController implements Initializable {
                 ConnectedUser.getInstance().getId()
         );
         repo.save(dossier);
-        dossierTable.getItems().add(dossier);
+        if (dossier.getId() != 0) {
+            dateField.clear();
+            heureField.clear();
+            descriptionSymptomeField.clear();
+            numGraviteField.clear();
+            patientField.clear();
+            dossierTable.getItems().add(dossier);
+        }
+    }
+
+    @FXML
+    void onRowClicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void onLogoutButtonClick() {
+
     }
 }
