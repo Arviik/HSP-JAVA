@@ -1,6 +1,6 @@
 package com.hspjava.modele;
 
-public class Concerne {
+public class Concerne extends Table {
     private int quantite;
     private int ref_demande;
     private int ref_produit;
