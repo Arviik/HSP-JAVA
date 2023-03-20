@@ -15,8 +15,10 @@ module com.example.hspjava {
     requires MaterialFX;
     requires java.sql;
     requires java.ini.parser;
-    requires jbcrypt;
+    requires password4j;
     requires jakarta.mail;
+    requires org.slf4j;
+    requires org.slf4j.simple;
 
     opens com.hspjava to javafx.fxml;
     exports com.hspjava;

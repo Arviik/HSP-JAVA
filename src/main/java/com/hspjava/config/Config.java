@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Config {
+    //TODO créer des méthodes getInt, getString, getBcrypt ... afin de récupérer correctement les différentes valeurs
     private static Ini ini;
 
     private Config() {
