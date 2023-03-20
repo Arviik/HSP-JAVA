@@ -93,7 +93,7 @@ public class MedecinController implements Initializable {
     private void setupDossierField() {
         ArrayList<? super Dossier> dt = (ArrayList<? super Dossier>) repo.getAll(new Dossier());
         dossierField.getItems().addAll((Collection<? extends Dossier>) dt);
-        dossierField.setConverter(FunctionalStringConverter.to(dossier -> (dossier == null) ? "" : String.valueOf(chambre.getNumero())));
+        dossierField.setConverter(FunctionalStringConverter.to(dossier -> (dossier == null) ? "" : String.valueOf(dossier.getDate_heure())));
     }
     @FXML
     void onSubmitDemande(ActionEvent event) {
@@ -107,7 +107,6 @@ public class MedecinController implements Initializable {
                 produitField.getValue().getId()
                 );
         repo.save(concerne);
-
     }
 
     @FXML
@@ -118,7 +117,5 @@ public class MedecinController implements Initializable {
                 dossierField.getValue().getId(),
                 chambreField.getValue().getId());
         repo.save(hospitalisation);
-
     }
-
 }

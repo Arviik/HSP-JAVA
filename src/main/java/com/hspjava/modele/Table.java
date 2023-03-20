@@ -14,7 +14,7 @@ public abstract class Table {
 
     private final String tableName;
 
-    private static ArrayList<Column> columns;
+    private ArrayList<Column> columns;
 
     protected Table() {
         this.tableName = this.getClass().getSimpleName();
