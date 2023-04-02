@@ -21,6 +21,8 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
+import static com.hspjava.HspApp.changeScene;
+
 public class SecretaireController implements Initializable {
     private final Repository repo = new Repository();
 
@@ -207,6 +209,7 @@ public class SecretaireController implements Initializable {
 
     @FXML
     void onLogoutButtonClick() {
-
+        changeScene("connexion", new ConnexionController());
     }
+
 }
