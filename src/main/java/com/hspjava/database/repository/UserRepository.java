@@ -18,7 +18,7 @@ public class UserRepository extends Repository {
         try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement("SELECT * FROM utilisateur WHERE email = ?")) {
             req.setString(1, user.getEmail());
             ResultSet res = req.executeQuery();
-            if (res.next() && Password.check(user.getMot_de_passe(), res.getString(user.getColumns().get(4).field())).with(BcryptFunction.getInstance(Bcrypt.valueOf(Config.get("bcrypt_version")), Integer.parseInt(Config.get("bcrypt_cost_factor"))))) {
+            if (res.next() && Password.check(user.getMot_de_passe(), res.getString(user.getColumns().get(4).field())).with(BcryptFunction.getInstance(Bcrypt.valueOf(Config.get("bcrypt_version", String.class)), Config.get("bcrypt_cost_factor", Integer.class)))) {
                 ConnectedUser.getInstance(
                         res.getInt(user.getColumns().get(0).field()),
                         res.getString(user.getColumns().get(1).field()),

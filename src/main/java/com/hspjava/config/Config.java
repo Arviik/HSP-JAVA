@@ -11,14 +11,13 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Config {
-    //TODO créer des méthodes getInt, getString, getBcrypt ... afin de récupérer correctement les différentes valeurs
     private static Ini ini;
 
     private Config() {
     }
 
-    public static String get(String name) {
-        return Objects.requireNonNull(getIni()).getValue("Config", name, String.class);
+    public static <T> T get(String key, Class<T> type) {
+        return Objects.requireNonNull(getIni()).getValue("Config", key, type);
     }
 
     public static List<String> getUserTypes() {

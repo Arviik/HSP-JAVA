@@ -76,7 +76,7 @@ public class AdminController implements Initializable {
                 nomField.getText(),
                 prenomField.getText(),
                 emailField.getText(),
-                Password.hash(mdpField.getText()).with(BcryptFunction.getInstance(Bcrypt.valueOf(Config.get("bcrypt_version")), Integer.parseInt(Config.get("bcrypt_cost_factor")))).getResult()
+                Password.hash(mdpField.getText()).with(BcryptFunction.getInstance(Bcrypt.valueOf(Config.get("bcrypt_version", String.class)), Config.get("bcrypt_cost_factor", Integer.class))).getResult()
         );
         userRepo.save(user);
         user.setUserType(userTypeField.getValue());

@@ -12,7 +12,7 @@ public final class Database {
 
     private Database() {
         try {
-            cnx = DriverManager.getConnection(Config.get("url"), Config.get("username"), Config.get("password"));
+            cnx = DriverManager.getConnection(Config.get("url", String.class), Config.get("username", String.class), Config.get("password", String.class));
         } catch (SQLException e) {
             e.printStackTrace();
         }
