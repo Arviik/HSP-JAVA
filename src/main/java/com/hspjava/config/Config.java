@@ -5,7 +5,9 @@ import com.github.vincentrussell.ini.Ini;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class Config {
@@ -19,8 +21,13 @@ public class Config {
         return Objects.requireNonNull(getIni()).getValue("Config", name, String.class);
     }
 
-    public static List<Object> getUserTypes() {
-        return Objects.requireNonNull(getIni()).getSection("UserTypes").values().stream().toList();
+    public static List<String> getUserTypes() {
+        List<String> userTypes = new ArrayList<>();
+        Map<String, Object> userTypesMap = Objects.requireNonNull(getIni()).getSection("UserTypes");
+        for (Object userType : userTypesMap.values()) {
+            userTypes.add((String) userType);
+        }
+        return userTypes;
     }
 
     private static Ini getIni() {

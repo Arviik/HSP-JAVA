@@ -51,7 +51,7 @@ public class Utilisateur extends Table {
 
     public String getUserType() {
         StringBuilder query = new StringBuilder();
-        for (Object userType : Config.getUserTypes()) {
+        for (String userType : Config.getUserTypes()) {
             query.append("SELECT '").append(userType).append("' AS table_name FROM ").append(userType).append(" WHERE ref_utilisateur = ? UNION ");
         }
         query.delete(query.length() - 7, query.length()).append(";");
