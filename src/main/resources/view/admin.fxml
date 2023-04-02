@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="863.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="550.0" prefWidth="863.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
     <children>
       <AnchorPane layoutX="-4.0" layoutY="-2.0" prefHeight="52.0" prefWidth="863.0" styleClass="pane" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
          <children>
@@ -53,10 +53,10 @@
                                         </Label>
                                         <MFXTextField fx:id="nomField" floatMode="BORDER" floatingText="Nom" layoutX="32.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="160.0" styleClass="text-field" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="40.0" />
                                         <MFXTextField fx:id="prenomField" floatMode="BORDER" floatingText="Prénom" layoutX="32.0" layoutY="77.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="160.0" styleClass="text-field" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="80.0" />
-                                        <MFXButton layoutX="70.0" layoutY="290.0" onAction="#onSubmitPatient" prefHeight="28.0" prefWidth="87.0" styleClass="button" text="Valider" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="240.0" />
+                                        <MFXButton layoutX="70.0" layoutY="290.0" onAction="#onSubmitUser" prefHeight="28.0" prefWidth="87.0" styleClass="button" text="Valider" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="240.0" />
                               <MFXTextField fx:id="emailField" floatMode="BORDER" floatingText="Email" layoutX="33.0" layoutY="163.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="160.0" styleClass="text-field" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="120.0" />
                               <MFXPasswordField fx:id="mdpField" floatMode="BORDER" floatingText="Mot de passe" layoutX="54.0" layoutY="173.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="160.0" />
-                              <MFXComboBox floatMode="BORDER" floatingText="Type d'utilisateur" layoutX="54.0" layoutY="202.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="200.0" />
+                              <MFXComboBox fx:id="userTypeField" floatMode="BORDER" floatingText="Type d'utilisateur" layoutX="54.0" layoutY="202.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="200.0" />
                                     </children>
                                 </AnchorPane>
                             </children>

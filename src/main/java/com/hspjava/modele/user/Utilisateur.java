@@ -7,6 +7,7 @@ import com.hspjava.modele.Table;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class Utilisateur extends Table {
     private String nom;
@@ -67,6 +68,23 @@ public class Utilisateur extends Table {
             throw new RuntimeException(e);
         }
         return "";
+    }
+
+    public void setUserType(String userType) {
+        while (!Objects.equals(getUserType(), "")) {
+            try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement("DELETE FROM " + getUserType() + " WHERE " + getUserType() + ".ref_utilisateur = ? ")) {
+                req.setInt(1, getId());
+                req.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        try (PreparedStatement req = Database.getInstance().getCnx().prepareStatement("INSERT INTO " + userType + " (ref_utilisateur) VALUES (?);")) {
+            req.setInt(1, getId());
+            req.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getNom() {
