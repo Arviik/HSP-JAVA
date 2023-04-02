@@ -1,7 +1,7 @@
 package com.hspjava;
 
 import com.google.common.base.CaseFormat;
-import com.hspjava.config.Config;
+import com.hspjava.services.config.Config;
 import com.hspjava.controller.ConnexionController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

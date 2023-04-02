@@ -1,4 +1,4 @@
-package com.hspjava.config;
+package com.hspjava.services.config;
 
 import com.github.vincentrussell.ini.Ini;
 
@@ -32,9 +32,9 @@ public class Config {
     private static Ini getIni() {
         try {
             if (Config.ini == null) {
-                String path = "src/main/java/com/hspjava/config/dev.ini";
+                String path = "src/main/java/com/hspjava/services/config/dev.ini";
                 if (!new File(path).isFile()) {
-                    path = "src/main/java/com/hspjava/config/prod.ini";
+                    path = "src/main/java/com/hspjava/services/config/prod.ini";
                 }
                 ini = new Ini();
                 ini.load(new FileInputStream(path));

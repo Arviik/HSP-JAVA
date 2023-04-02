@@ -1,6 +1,6 @@
 package com.hspjava.controller;
 
-import com.hspjava.config.Config;
+import com.hspjava.services.config.Config;
 import com.hspjava.database.repository.UserRepository;
 import com.hspjava.modele.user.Utilisateur;
 import com.password4j.BcryptFunction;

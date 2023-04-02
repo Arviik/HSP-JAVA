@@ -1,6 +1,6 @@
 package com.hspjava.database;
 
-import com.hspjava.config.Config;
+import com.hspjava.services.config.Config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
