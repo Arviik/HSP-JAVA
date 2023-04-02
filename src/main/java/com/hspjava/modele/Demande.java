@@ -6,6 +6,9 @@ public class Demande extends Table {
     private int ref_gestionnaire_de_stock;
     private int ref_medecin;
 
+    public Demande(){
+
+    }
     public Demande(String raison,int ref_medecin) {
         this.raison = raison;
         this.ref_medecin = ref_medecin;
@@ -49,4 +52,6 @@ public class Demande extends Table {
     public void setRef_medecin(int ref_medecin) {
         this.ref_medecin = ref_medecin;
     }
+
+
 }

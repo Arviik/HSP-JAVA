@@ -5,6 +5,14 @@ public class Propose {
     public int ref_fournisseur;
     public int ref_produit;
 
+    public Propose(int prix, int ref_fournisseur, int ref_produit) {
+        this.prix = prix;
+        this.ref_fournisseur = ref_fournisseur;
+        this.ref_produit = ref_produit;
+    }
+
+
+
     public int getPrix() {
         return prix;
     }

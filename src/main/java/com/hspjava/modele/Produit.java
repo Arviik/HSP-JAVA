@@ -7,6 +7,18 @@ public class Produit extends Table {
     private int stock;
     private int ref_gestionnaire_de_stock;
 
+    public Produit(){
+
+    }
+
+    public Produit(String libelle, String description, int niv_dangerosite, int stock, int ref_gestionnaire_de_stock){
+        this.libelle = libelle;
+        this.description = description;
+        this.niv_dangerosite = niv_dangerosite;
+        this.stock = stock;
+        this.ref_gestionnaire_de_stock = ref_gestionnaire_de_stock;
+    }
+
     public Produit(int id, String libelle, String description, int niv_dangerosite, int stock, int ref_gestionnaire_de_stock) {
         super(id);
         this.libelle = libelle;
