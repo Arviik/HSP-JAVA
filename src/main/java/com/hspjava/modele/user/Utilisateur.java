@@ -1,6 +1,6 @@
 package com.hspjava.modele.user;
 
-import com.hspjava.config.Config;
+import com.hspjava.services.config.Config;
 import com.hspjava.database.Database;
 import com.hspjava.modele.Table;
 
