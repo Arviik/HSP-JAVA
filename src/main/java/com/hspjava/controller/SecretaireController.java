@@ -104,8 +104,8 @@ public class SecretaireController implements Initializable {
         dossierTable.getFilters().add(new IntegerFilter<>("Patient", Dossier::getRef_patient));
         dossierTable.getFilters().add(new IntegerFilter<>("Secretaire", Dossier::getRef_secretaire));
 
-        ArrayList<? super Dossier> listdossier = (ArrayList<? super Dossier>) repo.getAll(new Dossier());
-        dossierTable.getItems().addAll((Collection<? extends Dossier>) listdossier);
+        ArrayList<? super Dossier> listDossier = (ArrayList<? super Dossier>) repo.getAll(new Dossier());
+        dossierTable.getItems().addAll((Collection<? extends Dossier>) listDossier);
     }
 
     private void setupPatientTable() {
