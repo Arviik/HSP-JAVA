@@ -7,7 +7,6 @@ import com.hspjava.modele.user.Utilisateur;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
 
 public class ConnexionController {
     @FXML
@@ -21,12 +20,12 @@ public class ConnexionController {
         UserRepository userRepo = new UserRepository();
         Utilisateur user = new Utilisateur(emailField.getText(), mdpField.getText());
         if (userRepo.connexion(user)) {
-            HspApp.changeScene(ConnectedUser.getInstance().getUserType(), new SecretaireController());
+            HspApp.changeSceneByUserType(ConnectedUser.getInstance().getUserType());
         }
     }
 
     @FXML
-    void onForgotPasswordClicked(MouseEvent event) {
+    void onForgotPasswordClicked() {
         HspApp.changeScene("mdpOublie", new MdpOublieController());
     }
 }
