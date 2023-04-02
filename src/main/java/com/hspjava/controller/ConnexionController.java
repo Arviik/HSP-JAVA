@@ -20,7 +20,12 @@ public class ConnexionController {
         UserRepository userRepo = new UserRepository();
         Utilisateur user = new Utilisateur(emailField.getText(), mdpField.getText());
         if (userRepo.connexion(user)) {
-            HspApp.changeSceneByUserType(ConnectedUser.getInstance().getUserType());
+            if (ConnectedUser.getInstance().getUserType().equals("gestionnaire_de_stock")){
+                HspApp.changeScene("gestionnaireDeStock", new GestionnaireDeStockController());
+            }
+            else{
+                HspApp.changeSceneByUserType(ConnectedUser.getInstance().getUserType());
+            }
         }
     }
 
