@@ -1,5 +1,10 @@
-CREATE DATABASE HSP_JAVA;
-USE HSP_JAVA;
+CREATE USER 'hsp_java'@'%' IDENTIFIED WITH mysql_native_password BY 'uT$0G&3rAUVp0o5FH9x0zw%B7HXtGo5iJJyICiIHzFeQP!CC4T';
+GRANT USAGE ON *.* TO 'hsp_java'@'%';
+ALTER USER 'hsp_java'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
+GRANT SELECT, INSERT, UPDATE, DELETE ON hsp_java.* TO 'hsp_java'@'%';
+
+CREATE DATABASE IF NOT EXISTS hsp_java;
+USE hsp_java;
 
 CREATE TABLE utilisateur(
     id_utilisateur int(11) NOT NULL AUTO_INCREMENT,
@@ -135,3 +140,7 @@ ALTER TABLE concerne
 ALTER TABLE demande
     ADD CONSTRAINT fk_demande_gestionnaire_de_stock FOREIGN KEY (ref_gestionnaire_de_stock) REFERENCES gestionnaire_de_stock(ref_utilisateur),
     ADD CONSTRAINT fk_demande_medecin FOREIGN KEY (ref_medecin) REFERENCES medecin(ref_utilisateur);
+
+INSERT INTO utilisateur (nom, prenom, email, mot_de_passe)
+VALUES ('master admin', 'master admin', 'master.admin@hspjava.com', '$2b$12$dE2gA55jg.47yWxb06AAZ.WDInN/kG4zn3JpEohKV2juA5ZS5yXA2');
+INSERT INTO admin (ref_utilisateur) VALUES ('1');
