@@ -40,7 +40,7 @@ public class HspApp extends Application {
     }
 
     public static void changeSceneByUserType(String connectedUserType) {
-        FXMLLoader fxmlLoader = new FXMLLoader(HspApp.class.getResource("/view/" + connectedUserType + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HspApp.class.getResource("/view/" + snakeCaseToPascalCase(connectedUserType) + ".fxml"));
         try {
             fxmlLoader.setController(getController(connectedUserType));
             stage.setScene(new Scene(fxmlLoader.load()));

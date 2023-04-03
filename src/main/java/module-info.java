@@ -19,6 +19,7 @@ module com.example.hspjava {
     requires jakarta.mail;
     requires org.slf4j;
     requires org.slf4j.simple;
+    requires reload4j;
     requires com.google.common;
 
     opens com.hspjava to javafx.fxml;
