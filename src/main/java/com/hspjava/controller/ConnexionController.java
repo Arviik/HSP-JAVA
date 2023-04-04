@@ -30,11 +30,9 @@ public class ConnexionController {
                 new PatternLayout("%d{dd/MM/yyyy HH:mm:ss} [%-5p] - %m%n"),
                 "./logs/logs.log"
         ));
-        logger.info("Tentative de connexion à l'email :" + user.getEmail());
+        logger.info("Tentative de connexion : " + user.getEmail());
         if (userRepo.connexion(user)) {
-            logger.info("Connexion réussi à l'email : " + ConnectedUser.getInstance().getEmail() +
-                    " userType->" + ConnectedUser.getInstance().getUserType()
-            );
+            logger.info("Connexion réussi : " + ConnectedUser.getInstance().getUserType());
             HspApp.changeSceneByUserType(ConnectedUser.getInstance().getUserType());
         }
     }
