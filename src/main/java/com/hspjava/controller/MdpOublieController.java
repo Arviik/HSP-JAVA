@@ -2,7 +2,6 @@ package com.hspjava.controller;
 
 import com.hspjava.database.repository.Repository;
 import com.hspjava.modele.Code;
-import com.hspjava.modele.Table;
 import com.hspjava.modele.user.Utilisateur;
 import com.hspjava.services.mailer.JMailer;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
@@ -12,10 +11,7 @@ import javafx.fxml.FXML;
 
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class MdpOublieController {
@@ -64,7 +60,7 @@ public class MdpOublieController {
                     sdf.format(calendar.getTime()),
                     3);
             repo.save(code);
-            JMailer.sendmail(emailField1.getText(), codes);
+            JMailer.sendmail(emailField1.getText(), "Mot de passe oublié", codes);
         }
 
     }

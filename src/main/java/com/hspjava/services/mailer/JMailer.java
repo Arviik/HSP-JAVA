@@ -12,34 +12,33 @@ public class JMailer {
     private JMailer() {
     }
 
-    public static void sendmail(String mail, String code) throws MessagingException {
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+    public static void sendmail(String mail, String subject, String mailContent) throws MessagingException {
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
         String emailAccount = Config.get("emailAccount", String.class);
-        String emailPassword = Config.get("emailPassword", String.class);
-        Session session = Session.getInstance(props, new Authenticator() {
+        Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(emailAccount, emailPassword);
+                return new PasswordAuthentication(emailAccount, Config.get("emailPassword", String.class));
             }
         });
-        Message message = prepareMessage(session, emailAccount, mail, code);
+        Message message = prepareMessage(session, emailAccount, mail, subject, mailContent);
         assert message != null;
         Transport.send(message);
     }
 
-    private static Message prepareMessage(Session session, String myAccountEmail, String mail, String text) {
+    private static Message prepareMessage(Session session, String emailAccount, String mail, String subject, String mailContent) {
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(myAccountEmail));
+            message.setFrom(new InternetAddress(emailAccount));
             InternetAddress[] internetAddresses = new InternetAddress[1];
             internetAddresses[0] = new InternetAddress(mail);
             message.setRecipients(Message.RecipientType.TO, internetAddresses);
-            message.setSubject("Test");
-            message.setText(text);
+            message.setSubject(subject);
+            message.setText(mailContent);
             return message;
         } catch (MessagingException e) {
             e.printStackTrace();
