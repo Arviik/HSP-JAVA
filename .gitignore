@@ -40,3 +40,4 @@ build/
 /.idea/
 /src/main/java/com/hspjava/services/config/dev.ini
 /src/main/java/com/hspjava/services/config/prod.ini
+/logs/logs.log
