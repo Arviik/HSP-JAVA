@@ -18,7 +18,7 @@
             <Label alignment="CENTER" layoutX="54.0" layoutY="128.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="17.0" prefWidth="160.0" text="Identifiants invalides" textAlignment="CENTER" textFill="#ef6e6b" visible="false" wrapText="true" />
             <ImageView fitHeight="209.0" fitWidth="238.0" layoutX="17.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/medical-logo-png-14.png" />
+                  <Image url="@../img/icon.png" />
                </image>
             </ImageView>
          </children>

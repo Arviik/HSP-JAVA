@@ -34,7 +34,7 @@
     <Line endY="360.0" layoutX="300.0" layoutY="20.0" stroke="#4160FF" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <ImageView fitHeight="209.0" fitWidth="238.0" layoutX="32.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/medical-logo-png-14.png" />
+            <Image url="@../img/icon.png" />
          </image>
       </ImageView>
 </children>
