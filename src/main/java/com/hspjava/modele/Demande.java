@@ -37,7 +37,7 @@ public class Demande extends Table {
         this.est_valide = est_valide;
     }
 
-    public int getRef_gestionnaire_de_stock() {
+    public int getRef_gestionnaire_stock() {
         return ref_gestionnaire_de_stock;
     }
 

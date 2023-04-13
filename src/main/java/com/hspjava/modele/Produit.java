@@ -18,6 +18,12 @@ public class Produit extends Table {
         this.stock = stock;
         this.ref_gestionnaire_de_stock = ref_gestionnaire_de_stock;
     }
+    public Produit(String libelle, String description, int niv_dangerosite, int stock){
+        this.libelle = libelle;
+        this.description = description;
+        this.niv_dangerosite = niv_dangerosite;
+        this.stock = stock;
+    }
 
     public Produit(int id, String libelle, String description, int niv_dangerosite, int stock, int ref_gestionnaire_de_stock) {
         super(id);
@@ -60,11 +66,11 @@ public class Produit extends Table {
         this.stock = stock;
     }
 
-    public int getRef_gestionnaire_de_stock() {
+    public int getRef_gestionnaire_stock() {
         return ref_gestionnaire_de_stock;
     }
 
-    public void setRef_gestionnaire_de_stock(int ref_gestionnaire_de_stock) {
+    public void setRef_gestionnaire_stock(int ref_gestionnaire_de_stock) {
         this.ref_gestionnaire_de_stock = ref_gestionnaire_de_stock;
     }
 }

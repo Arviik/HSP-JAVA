@@ -108,13 +108,13 @@ public class GestionnaireDeStockController implements Initializable {
         MFXTableColumn<Produit> descriptionColumn = new MFXTableColumn<>("Description", true, Comparator.comparing(Produit::getDescription));
         MFXTableColumn<Produit> nivDangerositeColumn = new MFXTableColumn<>("Dangérosité", true, Comparator.comparing(Produit::getNiv_dangerosite));
         MFXTableColumn<Produit> stockColumn = new MFXTableColumn<>("Stock", true, Comparator.comparing(Produit::getStock));
-        MFXTableColumn<Produit> gestionnaireColumn = new MFXTableColumn<>("Gestionnaire", true, Comparator.comparing(Produit::getRef_gestionnaire_de_stock));
+        MFXTableColumn<Produit> gestionnaireColumn = new MFXTableColumn<>("Gestionnaire", true, Comparator.comparing(Produit::getRef_gestionnaire_stock));
 
         libelleColumn.setRowCellFactory(produit -> new MFXTableRowCell<>(Produit::getLibelle));
         descriptionColumn.setRowCellFactory(produit -> new MFXTableRowCell<>(Produit::getDescription));
         nivDangerositeColumn.setRowCellFactory(produit -> new MFXTableRowCell<>(Produit::getNiv_dangerosite));
         stockColumn.setRowCellFactory(produit -> new MFXTableRowCell<>(Produit::getStock));
-        gestionnaireColumn.setRowCellFactory(produit -> new MFXTableRowCell<>(Produit::getRef_gestionnaire_de_stock));
+        gestionnaireColumn.setRowCellFactory(produit -> new MFXTableRowCell<>(Produit::getRef_gestionnaire_stock));
 
         produitTable.getTableColumns().add(libelleColumn);
         produitTable.getTableColumns().add(descriptionColumn);
@@ -126,7 +126,7 @@ public class GestionnaireDeStockController implements Initializable {
         produitTable.getFilters().add(new StringFilter<>("Description", Produit::getDescription));
         produitTable.getFilters().add(new IntegerFilter<>("Dangérosité", Produit::getNiv_dangerosite));
         produitTable.getFilters().add(new IntegerFilter<>("Stock", Produit::getStock));
-        produitTable.getFilters().add(new IntegerFilter<>("Gestionnaire", Produit::getRef_gestionnaire_de_stock));
+        produitTable.getFilters().add(new IntegerFilter<>("Gestionnaire", Produit::getRef_gestionnaire_stock));
 
         ArrayList<? super Produit> listProduit = (ArrayList<? super Produit>) repo.getAll(new Produit());
         produitTable.getItems().addAll((Collection<? extends Produit>) listProduit);
@@ -160,6 +160,7 @@ public class GestionnaireDeStockController implements Initializable {
                 nomFournisseurField.getText()
         );
         repo.save(fournisseur);
+
     }
 
     @FXML
@@ -167,6 +168,7 @@ public class GestionnaireDeStockController implements Initializable {
         PreparedStatement req = Database.getInstance().getCnx().prepareStatement("UPDATE tache SET est_valide = 1 WHERE id_demande = ?"); {
             req.setInt(1, demandeField.getValue().getId());
         }
+
 
     }
 
@@ -189,6 +191,15 @@ public class GestionnaireDeStockController implements Initializable {
                 Integer.parseInt(stockfield.getText()),
                 ConnectedUser.getInstance().getId()
         );
+        repo.save(produit);
+        if (produit.getId()!=0){
+            libelleField.clear();
+            descriptionfield.clear();
+            numDangerositeField.clear();
+            stockfield.clear();
+            produitTable.getItems().add(produit);
+            produitField.getItems().add(produit);
+        }
     }
 
 
